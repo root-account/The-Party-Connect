@@ -1,0 +1,16 @@
+{
+  "expo": {
+   "name": "The Party Connect",
+   "icon": "",
+   "version": "1.0.0",
+   "slug": "the-party-connect",
+   "ios": {
+     "bundleIdentifier": "com.pharrage.partyconnect",
+     "buildNumber": "1.0.0"
+   },
+   "android": {
+     "package": "com.pharrage.partyconnect",
+     "versionCode": 1
+   }
+  }
+}
