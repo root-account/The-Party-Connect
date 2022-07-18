@@ -4,7 +4,7 @@ let events = [];
 
 // GET all events
 export const getEvents = function(req, res){
-    var query = "SELECT * FROM events_list";
+    var query = "SELECT * FROM events_list ORDER BY start_date ASC";
 
     connection.query(query, (err, results)=>{
         if (!err) {
@@ -41,7 +41,8 @@ export const createEvents = function(req, res){
         email_address,\
         social_hashtag,\
         date_created,\
-        date_modified) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        date_modified,\
+        event_poster_url) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
     const event = req.body;
 
@@ -76,7 +77,8 @@ export const createEvents = function(req, res){
         event.email_address,
         event.social_hashtag,
         event.date_created,
-        event.date_modified], (err, results)=>{
+        event.date_modified,
+        event.event_poster_url], (err, results)=>{
         if (!err) {
             return res.status(200).json({message: "Event added"});
         }else{
@@ -98,6 +100,165 @@ export const findEvent = function(req, res){
         }else{
             return res.status(500).json(err);
         }
+    })
+
+}
+
+
+// DASHBOARD events feed
+export const eventsFeed = function(req, res){
+
+    var query = "SELECT * FROM events_list";
+
+    // var query = "SELECT\
+    //                 *\
+    //             FROM events_list\
+    //             JOIN rsvp\
+    //                 ON events_list.event_id = rsvp.event_id\
+    //             JOIN user_profiles\
+    //                 ON user_profiles.user_id = events_list.user_id\
+    //             ";
+    
+    
+
+    connection.query(query, (err, results)=>{
+        if (!err) {
+            let eventsList = [];
+            
+            let queryRsvp = "SELECT * FROM rsvp WHERE event_id = '"+element.event_id+"'";
+            let queryComments = "SELECT * FROM event_comments WHERE event_id = '"+element.event_id+"'";
+            let queryProfile = "SELECT * FROM user_profiles WHERE user_id = '"+element.user_id+"'";
+
+            // let eventsList = [];
+            
+            //Example of queries in a sequential flow
+            const rsvpList = function(){
+                return new Promise((resolve, reject)=>{
+                    connection.query(queryRsvp,  (error, results)=>{
+                        if(error){
+                            return reject(error);
+                        }
+                        return resolve(res.json(results));
+                    });
+                });
+            };
+            
+            const commentsList = function(){
+                return new Promise((resolve, reject)=>{
+                    connection.query(queryComments,  (error, results)=>{
+                        if(error){
+                            return reject(error);
+                        }
+                        return resolve(results);
+                    });
+                });
+            };
+            
+            const profileData = function(){
+                return new Promise((resolve, reject)=>{
+                    connection.query(queryProfile,  (error, results)=>{
+                        if(error){
+                            return reject(error);
+                        }
+                        return resolve(results);
+                    });
+                });
+            };
+            
+                        
+            results.forEach(element => {
+
+                // let rsvpList = []
+                // var commentsList = [];
+                // var profileData = [];
+
+                //  connection.query(queryRsvp, (err, results)=>{
+                //     if (!err) {
+                //         // console.log(results);
+                //         // rsvpList = res.status(200).json(results);
+
+                //         // return res.status(200).json(rsvpList);
+                //         // console.log(rsvpList);
+                //     }else{
+                //         console.log(err);
+                //     }
+
+                //     // console.log(rsvpList);
+                // });
+
+                // console.log(rsvpList);
+                
+                // connection.query(queryComments, (err, results)=>{
+                //     if (!err) {
+                //         // console.log(results);
+                //         commentsList = results;
+                //     }else{
+                //         console.log(err);
+                //     }
+                // })
+
+                // connection.query(queryProfile, (err, results)=>{
+                //     if (!err) {
+                //         // console.log(results);
+                //         profileData = results;
+                //     }else{
+                //         console.log(err);
+                //     }
+                // })
+
+
+
+                
+                
+                
+                // async function sequentialQueries () {
+                    // try{
+                    //     const result1 = await rsvpList();
+                    // // const result2 = await commentsList();
+                    // // const result3 = await profileData();
+
+                    // // rsvpList = await queryPromise1();
+                    
+                    // // here you can do something with the three results
+
+                        
+                    // eventsList.push(
+                    //     {
+                    //         details:element,
+                    //         rsvps:result1,
+                    //         // comments:await commentsList(),
+                    //         // user_profile:await profileData()
+                    //     }
+                    // )
+                   
+                    
+                    // } catch(error){
+                    //     console.log(error)
+                    // }
+
+                    // console.log(await rsvpList());  
+                // }  
+              
+             
+
+            });
+
+            eventsList.push(
+                        {
+                            details:element,
+                            // rsvps:result1,
+                            // comments:await commentsList(),
+                            // user_profile:await profileData()
+                        }
+                    )
+            console.log(eventsList);    
+            return res.status(200).json(eventsList);
+ 
+        }else{
+            // return res.status(500).json(err);
+        }
+
+
     })
 
 }

@@ -1,5 +1,7 @@
 import express from "express";
 import bodyParser from "body-parser";
+import cors from 'cors';
+
 import userRouter from "./routes/users.js"
 import eventsRouter from "./routes/events.js"
 import authenticationRouter from "./routes/authentication.js"
@@ -14,6 +16,7 @@ import connection from "./connection.js"
 
 
 const app = express();
+app.use(cors())
 
 app.use(bodyParser.json());
 
