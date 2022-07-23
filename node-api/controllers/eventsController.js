@@ -129,82 +129,87 @@ export const eventsFeed = function(req, res){
             let queryComments = "SELECT * FROM event_comments WHERE event_id = '"+element.event_id+"'";
             let queryProfile = "SELECT * FROM user_profiles WHERE user_id = '"+element.user_id+"'";
 
+            let rsvpList = []
+            var commentsList = [];
+            var profileData = [];
+
+
             // let eventsList = [];
             
-            //Example of queries in a sequential flow
-            const rsvpList = function(){
-                return new Promise((resolve, reject)=>{
-                    connection.query(queryRsvp,  (error, results)=>{
-                        if(error){
-                            return reject(error);
-                        }
-                        return resolve(res.json(results));
-                    });
-                });
-            };
+            // //Example of queries in a sequential flow
+            // const rsvpList = function(){
+            //     return new Promise((resolve, reject)=>{
+            //         connection.query(queryRsvp,  (error, results)=>{
+            //             if(error){
+
+
+
+            //                 return reject(error);
+            //             }
+            //             return resolve(res.json(results));
+            //         });
+            //     });
+            // };
             
-            const commentsList = function(){
-                return new Promise((resolve, reject)=>{
-                    connection.query(queryComments,  (error, results)=>{
-                        if(error){
-                            return reject(error);
-                        }
-                        return resolve(results);
-                    });
-                });
-            };
+            // const commentsList = function(){
+            //     return new Promise((resolve, reject)=>{
+            //         connection.query(queryComments,  (error, results)=>{
+            //             if(error){
+            //                 return reject(error);
+            //             }
+            //             return resolve(results);
+            //         });
+            //     });
+            // };
             
-            const profileData = function(){
-                return new Promise((resolve, reject)=>{
-                    connection.query(queryProfile,  (error, results)=>{
-                        if(error){
-                            return reject(error);
-                        }
-                        return resolve(results);
-                    });
-                });
-            };
+            // const profileData = function(){
+            //     return new Promise((resolve, reject)=>{
+            //         connection.query(queryProfile,  (error, results)=>{
+            //             if(error){
+            //                 return reject(error);
+            //             }
+            //             return resolve(results);
+            //         });
+            //     });
+            // };
             
                         
             results.forEach(element => {
 
-                // let rsvpList = []
-                // var commentsList = [];
-                // var profileData = [];
 
-                //  connection.query(queryRsvp, (err, results)=>{
-                //     if (!err) {
-                //         // console.log(results);
-                //         // rsvpList = res.status(200).json(results);
+                 connection.query(queryRsvp, (err, results)=>{
+                    if (!err) {
+                        // console.log(results);
+                        // rsvpList = res.status(200).json(results);
 
-                //         // return res.status(200).json(rsvpList);
-                //         // console.log(rsvpList);
-                //     }else{
-                //         console.log(err);
-                //     }
+                        // return res.status(200).json(rsvpList);
+                        // console.log(rsvpList);
+                    }else{
+                        console.log(err);
+                    }
 
-                //     // console.log(rsvpList);
-                // });
+                    // console.log(rsvpList);
+                });
 
-                // console.log(rsvpList);
+                console.log(rsvpList);
                 
-                // connection.query(queryComments, (err, results)=>{
-                //     if (!err) {
-                //         // console.log(results);
-                //         commentsList = results;
-                //     }else{
-                //         console.log(err);
-                //     }
-                // })
+                connection.query(queryComments, (err, results)=>{
+                    if (!err) {
+                        // console.log(results);
+                        commentsList = results;
+                    }else{
+                        console.log(err);
+                    }
+                })
 
-                // connection.query(queryProfile, (err, results)=>{
-                //     if (!err) {
-                //         // console.log(results);
-                //         profileData = results;
-                //     }else{
-                //         console.log(err);
-                //     }
-                // })
+                connection.query(queryProfile, (err, results)=>{
+                    if (!err) {
+                        // console.log(results);
+                        profileData = results;
+                    }else{
+                        console.log(err);
+                    }
+                })
 
 
 
