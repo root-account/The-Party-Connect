@@ -1,5 +1,5 @@
 import express from "express";
-import {getEvents, createEvents, findEvent, eventsFeed} from "../controllers/eventsController.js";
+import {getEvents, createEvents, findEvent, findUserEvents, eventsFeed} from "../controllers/eventsController.js";
 
 const router = express.Router();
 
@@ -7,6 +7,7 @@ const router = express.Router();
 router.get('/events/get', getEvents)
 router.post('/events/create', createEvents)
 router.get('/events/find/:id', findEvent)
+router.get('/events/user/:id', findUserEvents)
 router.get('/events/feed/', eventsFeed)
 
 

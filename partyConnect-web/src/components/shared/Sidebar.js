@@ -13,16 +13,16 @@ import {
 export default function Sidebar(props){
 
 
-const baseURL = "http://localhost:4000/api/events/get";
-const [event, setEvent] = React.useState([]);
+// const baseURL = "http://localhost:4000/api/events/get";
+// const [event, setEvent] = React.useState([]);
 
-  React.useEffect(() => {
-    axios.get(`${baseURL}`).then((response) => {
-      setEvent(response.data);
+//   React.useEffect(() => {
+//     axios.get(`${baseURL}`).then((response) => {
+//       setEvent(response.data);
 
-      console.log(response.data);
-    });
-  }, []);
+//       console.log(response.data);
+//     });
+//   }, []);
 
 
 

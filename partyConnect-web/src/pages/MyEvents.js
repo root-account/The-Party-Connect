@@ -4,14 +4,17 @@ import Navbar from "../components/shared/Navbar.js";
 import Sidebar from "../components/shared/Sidebar.js";
 import EventsHistory from '../components/shared/EventsHistory.js';
 
+import axios from "axios";
+import Moment from 'react-moment';
+
 // import MainScreen from "../components/dashboard/dashboard.comp.js";
 
-class MyEvents extends React.Component{
+export default function MyEvents(){
 
-  render(){
-    return(
-           
-             
+
+
+return(
+                        
 <div>
   
 <Navbar/>
@@ -44,7 +47,4 @@ class MyEvents extends React.Component{
 
 </div>
 );
-    }
 }
-
-export default MyEvents;

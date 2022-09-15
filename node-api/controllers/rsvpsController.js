@@ -89,3 +89,21 @@ export const findRsvp = function(req, res){
     })
 
 }
+
+
+// GET single rsvp BY id
+export const getUserRsvp = function(req, res){
+
+    const user_id = req.params.user_id;
+
+    var query = "SELECT * FROM rsvp WHERE user_id = "+user_id;
+
+    connection.query(query, (err, results)=>{
+        if (!err) {
+            return res.status(200).json(results);
+        }else{
+            return res.status(500).json(err);
+        }
+    })
+
+}

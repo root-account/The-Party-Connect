@@ -4,6 +4,7 @@ import Navbar from "../components/shared/Navbar.js";
 import Sidebar from "../components/shared/Sidebar.js";
 import RequestList from "../components/shared/RequestList.js";
 import FriendsList from "../components/shared/FriendsList.js";
+import FindPeopleList from "../components/shared/FindPeopleList.js";
 import ViewUserWidget from "../components/shared/ViewUserWidget.js";
 // import MainScreen from "../components/dashboard/dashboard.comp.js";
 
@@ -46,11 +47,12 @@ class Followers extends React.Component{
             <RequestList/>
             </div>
 
-            <h3>Friends</h3>
-            <FriendsList/>
+            <h3>Find more people</h3>
+            <FindPeopleList/>
           </div>
           <div className="col-md-5" id="content-screen">
-            <ViewUserWidget/>
+            {/* <ViewUserWidget/> */}
+            <FriendsList/>
           </div>
 
           </div>

@@ -89,3 +89,22 @@ export const findMessage = function(req, res){
     })
 
 }
+
+
+
+// GET single rsvp BY id
+export const getUserMessages = function(req, res){
+
+    const user_id = req.params.user_id;
+
+    var query = "SELECT * FROM direct_messages WHERE message_to = '"+user_id+"' OR message_from = '"+user_id+"'";
+
+    connection.query(query, (err, results)=>{
+        if (!err) {
+            return res.status(200).json(results);
+        }else{
+            return res.status(500).json(err);
+        }
+    })
+
+}

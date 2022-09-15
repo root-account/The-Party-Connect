@@ -17,6 +17,21 @@ export const getEvents = function(req, res){
 }
 
 
+// GET Featured events
+// export const getFeaturedEvents = function(req, res){
+//     var query = "SELECT * FROM events_list where ORDER BY start_date ASC";
+
+//     connection.query(query, (err, results)=>{
+//         if (!err) {
+//             return res.status(200).json(results);
+//         }else{
+//             return res.status(500).json(err);
+//         }
+//     })
+//     // res.json(events);
+// }
+
+
 // CREATE a new event
 export const createEvents = function(req, res){
     let query = "INSERT INTO events_list (user_id, event_id,\
@@ -89,10 +104,25 @@ export const createEvents = function(req, res){
 }
 
 
-// GET single user BY id
+// GET single event BY id
 export const findEvent = function(req, res){
     const eventId = req.params.id;
     var query = "SELECT * FROM events_list WHERE id = "+eventId;
+
+    connection.query(query, (err, results)=>{
+        if (!err) {
+            return res.status(200).json(results);
+        }else{
+            return res.status(500).json(err);
+        }
+    })
+
+}
+
+// GET single event BY id
+export const findUserEvents = function(req, res){
+    const userId = req.params.id;
+    var query = "SELECT * FROM events_list WHERE user_id = '"+userId+"'";
 
     connection.query(query, (err, results)=>{
         if (!err) {
@@ -109,17 +139,6 @@ export const findEvent = function(req, res){
 export const eventsFeed = function(req, res){
 
     var query = "SELECT * FROM events_list";
-
-    // var query = "SELECT\
-    //                 *\
-    //             FROM events_list\
-    //             JOIN rsvp\
-    //                 ON events_list.event_id = rsvp.event_id\
-    //             JOIN user_profiles\
-    //                 ON user_profiles.user_id = events_list.user_id\
-    //             ";
-    
-    
 
     connection.query(query, (err, results)=>{
         if (!err) {
@@ -179,10 +198,10 @@ export const eventsFeed = function(req, res){
 
                  connection.query(queryRsvp, (err, results)=>{
                     if (!err) {
-                        // console.log(results);
-                        // rsvpList = res.status(200).json(results);
+                        console.log(results);
+                        rsvpList = results;
 
-                        // return res.status(200).json(rsvpList);
+                        return res.status(200).json(rsvpList);
                         // console.log(rsvpList);
                     }else{
                         console.log(err);

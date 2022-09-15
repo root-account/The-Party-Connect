@@ -7,13 +7,28 @@ import {
 } from "react-router-dom"
 
 
-class FriendsList extends React.Component{
+import axios from "axios";
+import Moment from 'react-moment';
 
-render(){
+export default function FriendsList(){
 
-    return(
+    const baseURL = "http://localhost:4000/api";
+    const [usersList, setUsersList] = React.useState([]);
 
+    React.useEffect(() => {
+        getUsersList();
+    }, []);
 
+    // Get list of users
+    function getUsersList() {
+        axios.get(`${baseURL}/users/get`).then((response) => {
+            setUsersList(response.data);
+
+            console.log(response.data);
+        });
+    }
+
+return(
 
 <div className="friends-list"> 
 
@@ -41,12 +56,14 @@ render(){
                 <p>People who want to follow you</p>
                 
                 <div className="user-list">
+
+                {usersList.map((item, i) => (
                     <a  href="#" className="row user-item">
                         <div className="col-md-2 user-img">
-                            <img src="assets/img/james.jpg" alt="Circle image" className="img-fluid rounded-circle shadow w-50"/>
+                            <img src={item.profile_image_url? item.profile_image_url: "assets/img/profile-holder.png" } alt="Circle image" className="img-fluid rounded-circle shadow w-50"/>
                         </div>
                         <div className="col-md-5 user-info">
-                            <h5 className="d-block text-uppercase font-weight-bold">Dexter Jr Matthews </h5> 
+                            <h5 className="d-block text-uppercase font-weight-bold">{ item.business_name ? item.business_name : item.full_names+" "+item.surname}</h5> 
                             <p>Last active 20 Aug 2020</p> 
                         </div>
                         <div className="col-md-5 user-action">
@@ -57,136 +74,8 @@ render(){
                                 <i class="tim-icons icon-send"></i>
                             </button>
                         </div> 
-                    </a>
-
-                    <a  href="#" className="row user-item">
-                        <div className="col-md-2 user-img">
-                            <img src="assets/img/james.jpg" alt="Circle image" className="img-fluid rounded-circle shadow w-50"/>
-                        </div>
-                        <div className="col-md-5 user-info">
-                            <h5 className="d-block text-uppercase font-weight-bold">Dexter Jr Matthews </h5> 
-                            <p>Last active 20 Aug 2020</p> 
-                        </div>
-                        <div className="col-md-5 user-action">
-                            <button class="btn btn-simple btn-primary btn-icon btn-round float-right">
-                                <i class="tim-icons icon-send"></i>
-                            </button>
-                            <button class="btn btn-simple btn-primary btn-icon btn-round float-right">
-                                <i class="tim-icons icon-send"></i>
-                            </button>
-                        </div> 
-                    </a>
-
-                    <a  href="#" className="row user-item">
-                        <div className="col-md-2 user-img">
-                            <img src="assets/img/james.jpg" alt="Circle image" className="img-fluid rounded-circle shadow w-50"/>
-                        </div>
-                        <div className="col-md-5 user-info">
-                            <h5 className="d-block text-uppercase font-weight-bold">Dexter Jr Matthews </h5> 
-                            <p>Last active 20 Aug 2020</p> 
-                        </div>
-                        <div className="col-md-5 user-action">
-                            <button class="btn btn-simple btn-primary btn-icon btn-round float-right">
-                                <i class="tim-icons icon-send"></i>
-                            </button>
-                            <button class="btn btn-simple btn-primary btn-icon btn-round float-right">
-                                <i class="tim-icons icon-send"></i>
-                            </button>
-                        </div> 
-                    </a>
-
-                    <a  href="#" className="row user-item">
-                        <div className="col-md-2 user-img">
-                            <img src="assets/img/james.jpg" alt="Circle image" className="img-fluid rounded-circle shadow w-50"/>
-                        </div>
-                        <div className="col-md-5 user-info">
-                            <h5 className="d-block text-uppercase font-weight-bold">Dexter Jr Matthews </h5> 
-                            <p>Last active 20 Aug 2020</p> 
-                        </div>
-                        <div className="col-md-5 user-action">
-                            <button class="btn btn-simple btn-primary btn-icon btn-round float-right">
-                                <i class="tim-icons icon-send"></i>
-                            </button>
-                            <button class="btn btn-simple btn-primary btn-icon btn-round float-right">
-                                <i class="tim-icons icon-send"></i>
-                            </button>
-                        </div> 
-                    </a>
-
-                    <a  href="#" className="row user-item">
-                        <div className="col-md-2 user-img">
-                            <img src="assets/img/james.jpg" alt="Circle image" className="img-fluid rounded-circle shadow w-50"/>
-                        </div>
-                        <div className="col-md-5 user-info">
-                            <h5 className="d-block text-uppercase font-weight-bold">Dexter Jr Matthews </h5> 
-                            <p>Last active 20 Aug 2020</p> 
-                        </div>
-                        <div className="col-md-5 user-action">
-                            <button class="btn btn-simple btn-primary btn-icon btn-round float-right">
-                                <i class="tim-icons icon-send"></i>
-                            </button>
-                            <button class="btn btn-simple btn-primary btn-icon btn-round float-right">
-                                <i class="tim-icons icon-send"></i>
-                            </button>
-                        </div> 
-                    </a>
-
-                    <a  href="#" className="row user-item">
-                        <div className="col-md-2 user-img">
-                            <img src="assets/img/james.jpg" alt="Circle image" className="img-fluid rounded-circle shadow w-50"/>
-                        </div>
-                        <div className="col-md-5 user-info">
-                            <h5 className="d-block text-uppercase font-weight-bold">Dexter Jr Matthews </h5> 
-                            <p>Last active 20 Aug 2020</p> 
-                        </div>
-                        <div className="col-md-5 user-action">
-                            <button class="btn btn-simple btn-primary btn-icon btn-round float-right">
-                                <i class="tim-icons icon-send"></i>
-                            </button>
-                            <button class="btn btn-simple btn-primary btn-icon btn-round float-right">
-                                <i class="tim-icons icon-send"></i>
-                            </button>
-                        </div> 
-                    </a>
-
-                    <a  href="#" className="row user-item">
-                        <div className="col-md-2 user-img">
-                            <img src="assets/img/james.jpg" alt="Circle image" className="img-fluid rounded-circle shadow w-50"/>
-                        </div>
-                        <div className="col-md-5 user-info">
-                            <h5 className="d-block text-uppercase font-weight-bold">Dexter Jr Matthews </h5> 
-                            <p>Last active 20 Aug 2020</p> 
-                        </div>
-                        <div className="col-md-5 user-action">
-                            <button class="btn btn-simple btn-primary btn-icon btn-round float-right">
-                                <i class="tim-icons icon-send"></i>
-                            </button>
-                            <button class="btn btn-simple btn-primary btn-icon btn-round float-right">
-                                <i class="tim-icons icon-send"></i>
-                            </button>
-                        </div> 
-                    </a>
-
-                    <a  href="#" className="row user-item">
-                        <div className="col-md-2 user-img">
-                            <img src="assets/img/james.jpg" alt="Circle image" className="img-fluid rounded-circle shadow w-50"/>
-                        </div>
-                        <div className="col-md-5 user-info">
-                            <h5 className="d-block text-uppercase font-weight-bold">Dexter Jr Matthews </h5> 
-                            <p>Last active 20 Aug 2020</p> 
-                        </div>
-                        <div className="col-md-5 user-action">
-                            <button class="btn btn-simple btn-primary btn-icon btn-round float-right">
-                                <i class="tim-icons icon-send"></i>
-                            </button>
-                            <button class="btn btn-simple btn-primary btn-icon btn-round float-right">
-                                <i class="tim-icons icon-send"></i>
-                            </button>
-                        </div> 
-                    </a>
-
-                    
-
+                    </a>  
+                ))}
                     
                 </div>
 
@@ -198,20 +87,25 @@ render(){
                 <p>People who are following you.</p>
                 
                 <div className="user-list">
+                {usersList.map((item, i) => (
                     <a  href="#" className="row user-item">
                         <div className="col-md-2 user-img">
-                            <img src="assets/img/james.jpg" alt="Circle image" className="img-fluid rounded-circle shadow w-50"/>
+                            <img src={item.profile_image_url? item.profile_image_url: "assets/img/profile-holder.png" } alt="Circle image" className="img-fluid rounded-circle shadow w-50"/>
                         </div>
                         <div className="col-md-5 user-info">
-                            <h5 className="d-block text-uppercase font-weight-bold">Dexter Jr Matthews </h5> 
+                            <h5 className="d-block text-uppercase font-weight-bold">{ item.business_name ? item.business_name : item.full_names+" "+item.surname}</h5> 
                             <p>Last active 20 Aug 2020</p> 
                         </div>
                         <div className="col-md-5 user-action">
                             <button class="btn btn-simple btn-primary btn-icon btn-round float-right">
                                 <i class="tim-icons icon-send"></i>
                             </button>
+                            <button class="btn btn-simple btn-primary btn-icon btn-round float-right">
+                                <i class="tim-icons icon-send"></i>
+                            </button>
                         </div> 
-                    </a>
+                    </a> 
+                ))}
                 </div>
 
             </div>
@@ -220,20 +114,26 @@ render(){
             <div className="col-md-12">
                 <p>People you follow</p>
                 <div className="user-list">
+
+                {usersList.map((item, i) => (
                     <a  href="#" className="row user-item">
                         <div className="col-md-2 user-img">
-                            <img src="assets/img/james.jpg" alt="Circle image" className="img-fluid rounded-circle shadow w-50"/>
+                            <img src={item.profile_image_url? item.profile_image_url: "assets/img/profile-holder.png" } alt="Circle image" className="img-fluid rounded-circle shadow w-50"/>
                         </div>
                         <div className="col-md-5 user-info">
-                            <h5 className="d-block text-uppercase font-weight-bold">Dexter Jr Matthews </h5> 
+                            <h5 className="d-block text-uppercase font-weight-bold">{ item.business_name ? item.business_name : item.full_names+" "+item.surname}</h5> 
                             <p>Last active 20 Aug 2020</p> 
                         </div>
                         <div className="col-md-5 user-action">
                             <button class="btn btn-simple btn-primary btn-icon btn-round float-right">
                                 <i class="tim-icons icon-send"></i>
                             </button>
+                            <button class="btn btn-simple btn-primary btn-icon btn-round float-right">
+                                <i class="tim-icons icon-send"></i>
+                            </button>
                         </div> 
-                    </a>
+                    </a> 
+                ))}
                 </div>
             </div>
         </div>
@@ -247,6 +147,3 @@ render(){
     )
 
 }
-}
-
-export default FriendsList;

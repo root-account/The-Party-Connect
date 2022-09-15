@@ -4,14 +4,16 @@ import Navbar from "../components/shared/Navbar.js";
 import Sidebar from "../components/shared/Sidebar.js";
 import EventsHistory from '../components/shared/EventsHistory.js';
 
+import axios from "axios";
+import Moment from 'react-moment';
+
 // import MainScreen from "../components/dashboard/dashboard.comp.js";
 
-class SavedItemsPage extends React.Component{
+export default function SavedItemsPage(){
 
-    render(){
-        return(
-               
-                 
+
+return(
+                         
     <div>
       
     <Navbar/>
@@ -44,7 +46,4 @@ class SavedItemsPage extends React.Component{
     
     </div>
     );
-        }
 }
-
-export default SavedItemsPage;

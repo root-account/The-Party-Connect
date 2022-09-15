@@ -1,10 +1,65 @@
 import React from "react";
 
-class Navbar extends React.Component{
+import axios from "axios";
+import Moment from 'react-moment';
 
-render(){
+export default function Navbar(){
 
-    return(
+
+const baseURL = "http://localhost:4000/api/events/get";
+const [userRsvp, setUserRsvp] = React.useState([]);
+const [userMessages, setUserMessages] = React.useState([]);
+const [userInvitation, setUserInvitation] = React.useState([]);
+const [userNotifications, setUserNotifications] = React.useState([]);
+
+  React.useEffect(() => {
+    getUserRsvp();
+    getUserMessages();
+    getUserRsvp();
+    getUserNotifications();
+  }, []);
+
+
+  // Get user RSVPS
+  function getUserRsvp(){
+    axios.get(`${baseURL}`).then((response) => {
+      setUserRsvp(response.data);
+
+      console.log(response.data);
+    });
+  }
+
+  // Get user messages
+  function getUserMessages() {
+    axios.get(`${baseURL}`).then((response) => {
+      setUserMessages(response.data);
+
+      console.log(response.data);
+    });
+  }
+
+
+  // Get user Invitations
+  function getUserInvitation() {
+    axios.get(`${baseURL}`).then((response) => {
+      setUserInvitation(response.data);
+
+      console.log(response.data);
+    });
+  }
+
+
+  // Get user notifications
+  function getUserNotifications() {
+    axios.get(`${baseURL}`).then((response) => {
+      setUserNotifications(response.data);
+
+      console.log(response.data);
+    });
+  }
+
+
+return(
 
 <nav className="navbar navbar-expand-lg fixed-top navbar-transparent " color-on-scroll="50">
     
@@ -157,6 +212,3 @@ render(){
     )
 
 }
-}
-
-export default Navbar;

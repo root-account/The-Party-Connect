@@ -7,29 +7,62 @@ import EditScreen from "../components/shared/EditScreen.js";
 
 import MainScreen from "../components/dashboard/dashboard.comp.js";
 
-class Dashboard extends React.Component{
+import axios from "axios";
+import Moment from 'react-moment';
 
-  constructor(props){
-    super(props);
+export default function Dashboard(){
 
-    this.state = {
-      isModalActive: false, 
+//   constructor(props){
+//     super(props);
+
+//     this.state = {
+//       isModalActive: false, 
+//     }
+//   }
+
+// showEventModal = () => {
+//   this.setState({
+//     isModalActive:true,
+//   })
+// }
+
+// closeEventModal = () => {
+//   this.setState({
+//     isModalActive:false,
+//   })
+// }
+
+
+const baseURL = "http://localhost:4000/api";
+const [event, setEvent] = React.useState([]);
+
+  React.useEffect(() => {
+    getEvents();
+  }, []);
+
+   // Get events
+   function getEvents() {
+        axios.get(`${baseURL}/events/get`).then((response) => {
+          setEvent(response.data);
+
+          console.log(response.data);
+        });
     }
+
+
+  function createEvent() {
+    axios
+      .event(baseURL, {
+        title: "Hello World!",
+        body: "This is a new event."
+      })
+      .then((response) => {
+        setEvent(response.data);
+      });
   }
 
-showEventModal = () => {
-  this.setState({
-    isModalActive:true,
-  })
-}
+  // if (!event) return "No event!"
 
-closeEventModal = () => {
-  this.setState({
-    isModalActive:false,
-  })
-}
-
-render(){
 
 return(                     
 <div>
@@ -43,9 +76,10 @@ return(
         <img src="assets/img/path5.png" className="path path1"/>
 
           <EditScreen
-            isModalActive ={this.state.isModalActive}
-            showEventModal = {this.showEventModal.bind(this)}
-            closeEventModal = {this.closeEventModal.bind(this)}
+            // isModalActive ={this.state.isModalActive}
+            // showEventModal = {this.showEventModal.bind(this)}
+            // closeEventModal = {this.closeEventModal.bind(this)}
+
           />
 
         <div className="container" id="main-container">
@@ -56,11 +90,13 @@ return(
 
           <div className="col-md-6" id="content-screen">
             <MainScreen
-              showEventModal = {this.showEventModal.bind(this)}
+              events = {event}
+              // showEventModal = {this.showEventModal.bind(this)}
             />
           </div>
 
-          <DirectMsg/>
+          <DirectMsg events = {event} />
+
           </div>
         </div>
       </div>
@@ -70,7 +106,5 @@ return(
 
 </div>
 );
-    }
 }
 
-export default Dashboard;

@@ -14,29 +14,13 @@ const showEventModal = function(){
 }
 
 
-const baseURL = "http://localhost:4000/api/events/get";
 const [event, setEvent] = React.useState([]);
 
-  React.useEffect(() => {
-    axios.get(`${baseURL}`).then((response) => {
-      setEvent(response.data);
+React.useEffect(() => {
+  setEvent(props.events);
 
-      console.log(response.data);
-    });
-  }, []);
-
-  function createEvent() {
-    axios
-      .event(baseURL, {
-        title: "Hello World!",
-        body: "This is a new event."
-      })
-      .then((response) => {
-        setEvent(response.data);
-      });
-  }
-
-  if (!event) return "No event!"
+  console.log(props.events);
+}, []);
 
 return(
 
@@ -148,7 +132,7 @@ PARTY NUMBER 1 COPY
       <div className="card-header event-hostDetails">
         <div className="row flex flex-row mb-3">
           <div className="col-md-2 pr-0 pt-2">
-            <img src="assets/img/lora.jpg" alt="Circle image" className="img-fluid rounded-circle shadow"/>
+            <img src={item.profile_image_url? item.profile_image_url: "assets/img/profile-holder.png" } alt="Circle image" className="img-fluid rounded-circle shadow"/>
           </div>
           <div className="col-md-10 pl-2 d-flex flex-column align-self-center">
             <h6>Pharrage Events</h6>
